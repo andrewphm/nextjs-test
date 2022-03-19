@@ -1,8 +1,11 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import Head from 'next/head';
+import Image from 'next/image';
+import styles from '../styles/Home.module.css';
+import User from '../models/User';
+import connectToDb from '../connectToDb';
 
-export default function Home() {
+export default function Home({ user }) {
+  console.log(user);
   return (
     <div className={styles.container}>
       <Head>
@@ -65,5 +68,19 @@ export default function Home() {
         </a>
       </footer>
     </div>
-  )
+  );
+}
+
+export async function getServerSideProps(context) {
+  const userQuery = context.query.username;
+
+  await connectToDb();
+
+  const user = await User.findOne({ username: userQuery });
+
+  return {
+    props: {
+      user: JSON.parse(JSON.stringify(user)),
+    },
+  };
 }
