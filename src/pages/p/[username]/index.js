@@ -45,7 +45,7 @@ export default function Profile({ userData, userPosts }) {
     <div>
       <p>{JSON.stringify(userData)}</p>
       <br></br>
-      <p>{JSON.stringify(userData)}</p>
+      <p>{JSON.stringify(userPosts)}</p>
     </div>
   );
 }
