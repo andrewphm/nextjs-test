@@ -2,6 +2,9 @@ import dbConnect from '../../../lib/dbConnect';
 import mongoose from 'mongoose';
 import Post from '../../../models/Post';
 import User from '../../../models/User';
+import Layout from '../../../components/layouts/Layout';
+import ProfileContent from '../../../components/profile/ProfileContent';
+import ProfileInfo from '../../../components/profile/ProfileInfo';
 
 export async function getServerSideProps(context) {
   await dbConnect();
@@ -40,6 +43,9 @@ export async function getServerSideProps(context) {
 }
 
 export default function Profile({ userData, userPosts }) {
+  console.log(userData);
+  console.log(userPosts);
+
   return (
     <section className="min-h-[80vh]">
       <p>{JSON.stringify(userData)}</p>
