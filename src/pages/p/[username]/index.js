@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import Post from '../../../models/Post';
 import User from '../../../models/User';
 import dynamic from 'next/dynamic';
+import ProfileContent from '../../../components/profile/ProfileContent.jsx';
 
 const ProfileInfo = dynamic(() =>
   import('../../../components/profile/ProfileInfo.jsx')
@@ -54,6 +55,7 @@ export default function Profile({ userData, userPosts }) {
       <p>{JSON.stringify(userData)}</p>
       <br></br>
       <p>{JSON.stringify(userPosts)}</p>
+      <ProfileContent userPosts={userPosts} />
     </section>
   );
 }
