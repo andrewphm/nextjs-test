@@ -52,13 +52,16 @@ export default function Profile({ userData, userPosts }) {
     import('../../../components/profile/ProfileContent.jsx')
   );
 
+  const Layout = dynamic(() =>
+    import('../../../components/layouts/Layout.jsx')
+  );
+
   return (
-    <section className="min-h-[80vh]">
-      <ProfileInfo userPosts={userPosts} userData={userData} />
-      <p>{JSON.stringify(userData)}</p>
-      <br></br>
-      <p>{JSON.stringify(userPosts)}</p>
-      <ProfileContent userPosts={userPosts} />
-    </section>
+    <Layout>
+      <section className="min-h-[80vh]">
+        <ProfileInfo userPosts={userPosts} userData={userData} />
+        <ProfileContent userPosts={userPosts} />
+      </section>
+    </Layout>
   );
 }
