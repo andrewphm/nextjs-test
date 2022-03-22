@@ -9,7 +9,7 @@ const ProfileInfo = dynamic(() =>
 );
 
 const ProfileContent = dynamic(() =>
-  import('../../../components/profile/ProfileContent')
+  import('../../../components/profile/ProfileContent.jsx')
 );
 
 export async function getServerSideProps(context) {
