@@ -2,6 +2,11 @@ import dbConnect from '../../../lib/dbConnect';
 import mongoose from 'mongoose';
 import Post from '../../../models/Post';
 import User from '../../../models/User';
+import dynamic from 'next/dynamic';
+
+const ProfileInfo = dynamic(() =>
+  import('../../../components/profile/ProfileInfo.jsx')
+);
 
 export async function getServerSideProps(context) {
   await dbConnect();
@@ -45,6 +50,7 @@ export default function Profile({ userData, userPosts }) {
 
   return (
     <section className="min-h-[80vh]">
+      <ProfileInfo userData={userData} userPosts={userPosts} />
       <p>{JSON.stringify(userData)}</p>
       <br></br>
       <p>{JSON.stringify(userPosts)}</p>
