@@ -1,19 +1,19 @@
-import Post from '../../../models/Post'
-import connectToDb from '../../../connectToDb'
+import Post from '../../../models/Post';
+import connectToDb from '../../../lib/dbConnect.js';
 
-export default async function (req, res) {
-  await connectToDb()
+export default async function handler(req, res) {
+  await connectToDb();
 
   const {
     method,
     query: { username },
-  } = req
+  } = req;
 
   try {
-    const userPosts = await Post.find({ username })
-    res.status(200).json(userPosts)
+    const userPosts = await Post.find({ username });
+    res.status(200).json(userPosts);
   } catch (error) {
-    console.log(error)
-    res.status(400).json({ success: false, message: 'Failed to fetch posts' })
+    console.log(error);
+    res.status(400).json({ success: false, message: 'Failed to fetch posts' });
   }
 }
