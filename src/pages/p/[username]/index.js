@@ -3,10 +3,13 @@ import mongoose from 'mongoose';
 import Post from '../../../models/Post';
 import User from '../../../models/User';
 import dynamic from 'next/dynamic';
-import ProfileContent from '../../../components/profile/ProfileContent.jsx';
 
 const ProfileInfo = dynamic(() =>
   import('../../../components/profile/ProfileInfo.jsx')
+);
+
+const ProfileContent = dynamic(() =>
+  import('../../../components/profile/ProfileContent')
 );
 
 export async function getServerSideProps(context) {
