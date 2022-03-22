@@ -2,7 +2,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../../styles/Home.module.css';
 import User from '../../models/User';
-import connectToDb from '../../connectToDb';
+import connectToDb from '../../lib/connectToDb';
 import Post from '../../models/Post';
 
 export default function Home({ user, userPosts }) {
