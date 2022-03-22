@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from 'mongoose'
 
 const PostCommentSchema = new mongoose.Schema(
   {
@@ -16,7 +16,7 @@ const PostCommentSchema = new mongoose.Schema(
     },
   },
   { timestamps: true }
-);
+)
 
 const PostSchema = new mongoose.Schema(
   {
@@ -39,6 +39,6 @@ const PostSchema = new mongoose.Schema(
     comments: [PostCommentSchema],
   },
   { timestamps: true }
-);
+)
 
-export default mongoose.models.Post || mongoose.model('Post', PostSchema);
+export default mongoose.models.Post || mongoose.model('Post', PostSchema)
