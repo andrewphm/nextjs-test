@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import Post from '../../../models/Post';
 import User from '../../../models/User';
 import dynamic from 'next/dynamic';
+import ProfileContent from '~/components/profile/ProfileContent.jsx';
 
 export async function getServerSideProps(context) {
   await dbConnect();
@@ -48,9 +49,9 @@ export default function Profile({ userData, userPosts }) {
     import('../../../components/profile/ProfileInfo.jsx')
   );
 
-  const ProfileContent = dynamic(() =>
-    import('../../../components/profile/ProfileContent.jsx')
-  );
+  // const ProfileContent = dynamic(() =>
+  //   import('../../../components/profile/ProfileContent.jsx')
+  // );
 
   const Layout = dynamic(() =>
     import('../../../components/layouts/Layout.jsx')
