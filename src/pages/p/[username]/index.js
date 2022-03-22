@@ -4,8 +4,8 @@ import Post from '../../../models/Post';
 import User from '../../../models/User';
 import dynamic from 'next/dynamic';
 
-const ProfileInfo = dynamic(() =>
-  import('../../../components/profile/ProfileInfo.jsx')
+const ProfileContent = dynamic(() =>
+  import('../../../components/profile/ProfileContent.jsx')
 );
 
 export async function getServerSideProps(context) {
@@ -50,7 +50,7 @@ export default function Profile({ userData, userPosts }) {
 
   return (
     <section className="min-h-[80vh]">
-      <ProfileInfo userData={userData} userPosts={userPosts} />
+      <ProfileContent userPosts={userPosts} />
       <p>{JSON.stringify(userData)}</p>
       <br></br>
       <p>{JSON.stringify(userPosts)}</p>
