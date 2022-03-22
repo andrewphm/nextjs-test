@@ -8,10 +8,6 @@ const ProfileInfo = dynamic(() =>
   import('../../../components/profile/ProfileInfo.jsx')
 );
 
-const ProfileContent = dynamic(() =>
-  import('../../../components/profile/ProfileContent.jsx')
-);
-
 export async function getServerSideProps(context) {
   await dbConnect();
   const userQuery = context.query.username;
@@ -58,7 +54,6 @@ export default function Profile({ userData, userPosts }) {
       <p>{JSON.stringify(userData)}</p>
       <br></br>
       <p>{JSON.stringify(userPosts)}</p>
-      <ProfileContent userPosts={userPosts} />
     </section>
   );
 }
