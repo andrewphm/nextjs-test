@@ -3,6 +3,7 @@ import Post from '../../models/Post';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import User from '../../models/User';
 
 export default function UserPost({ post, userData }) {
   /*
@@ -81,16 +82,12 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   await dbConnect();
-  const BASE_URL =
-    process.env.NODE_ENV === 'development'
-      ? 'http://localhost:3001/api/'
-      : 'https://nexttest.andrewpham.ca/api/';
+
+  let _id = params.postID;
 
   try {
-    let res = await fetch(`${BASE_URL}/post?id=${params.postID}`);
-    const post = await res.json();
-    let userRes = await fetch(`${BASE_URL}/user/${post.username}`);
-    let userData = await userRes.json();
+    let post = await Post.findOne({ _id });
+    let user = await User.findOne({ username: post.username });
 
     if (!post) {
       return {
@@ -103,7 +100,7 @@ export async function getStaticProps({ params }) {
     return {
       props: {
         post: JSON.parse(JSON.stringify(post)),
-        userData: JSON.parse(JSON.stringify(userData)),
+        userData: JSON.parse(JSON.stringify(user)),
       },
       revalidate: 5,
     };
