@@ -1,11 +1,7 @@
-import dbConnect from '../../lib/dbConnect';
+import dbConnect from '../../../lib/dbConnect';
 import mongoose from 'mongoose';
-import User from '../../models/User';
-import Post from '../../models/Post';
-import ProfileContent from '../../components/profile/ProfileContent';
-import ProfileInfo from '../../components/profile/ProfileInfo';
-import Layout from '../../components/layouts/Layout';
-import Link from 'next/link';
+import Post from '../../../models/Post';
+import User from '../../../models/User';
 
 export async function getServerSideProps(context) {
   await dbConnect();
