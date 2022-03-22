@@ -320,7 +320,7 @@ const ProfileContent = ({ userPosts }) => {
         <div className="mb-1 grid w-full grid-cols-3 gap-1 pt-1 md:gap-5 xl:gap-4">
           {userPosts?.map((item) => {
             return (
-              <Link key={item._id} href={`/${item.username}/${item._id}`}>
+              <Link key={item._id} href={`/p/${item._id}`}>
                 <a>
                   <div
                     key={item._id}

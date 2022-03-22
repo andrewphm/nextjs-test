@@ -50,10 +50,12 @@ const Header = ({ currentTab }) => {
   const handleSignOut = async () => {
     try {
       const data = await API.userSignOut();
-      dispatch(clearCurrentUser());
 
-      if (router.pathname === '/') {
-        window.location.reload();
+      if (data.status === 200) {
+        dispatch(clearCurrentUser());
+        if (router.pathname === '/') {
+          window.location.reload();
+        }
       }
     } catch (error) {
       console.log(error);

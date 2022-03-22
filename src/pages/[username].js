@@ -1,7 +1,7 @@
-import dbConnect from '../../../lib/dbConnect';
+import dbConnect from '../lib/dbConnect';
 import mongoose from 'mongoose';
-import Post from '../../../models/Post';
-import User from '../../../models/User';
+import Post from '../models/Post';
+import User from '../models/User';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 
@@ -43,14 +43,12 @@ export default function Profile({ userData, userPosts }) {
   Encountering a very strange bug where next.js Severless function will time-out if these UI components are not dynamically imported after the severless function finishes.
   */
   const ProfileInfo = dynamic(() =>
-    import('../../../components/profile/ProfileInfo.jsx')
+    import('../components/profile/ProfileInfo.jsx')
   );
   const ProfileContent = dynamic(() =>
-    import('../../../components/profile/ProfileContent.jsx')
+    import('../components/profile/ProfileContent.jsx')
   );
-  const Layout = dynamic(() =>
-    import('../../../components/layouts/Layout.jsx')
-  );
+  const Layout = dynamic(() => import('../components/layouts/Layout.jsx'));
 
   // If user cannot be found.
   if (!userData) {

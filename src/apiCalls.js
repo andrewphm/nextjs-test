@@ -3,7 +3,7 @@ import axios from 'axios';
 const BASE_URL =
   process.env.NODE_ENV === 'development'
     ? 'http://localhost:3001/api/'
-    : 'https://margatsni.andrewpham.ca/api/';
+    : 'https://nexttest.andrewpham.ca/api/';
 
 const apiCalls = {
   userLogin: async (body) => {
