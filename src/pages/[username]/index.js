@@ -49,7 +49,7 @@ export default function Profile({ userData, userPosts }) {
       <Layout>
         <div className="my-10 mx-auto flex flex-col gap-y-5 px-10 text-center">
           <p className="text-2xl font-semibold">
-            Sorry, this page isn't available.
+            Sorry, this page is not available.
           </p>
 
           <p>

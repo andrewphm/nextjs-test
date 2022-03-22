@@ -1,32 +1,32 @@
-import Image from 'next/image'
-import { useState, useRef } from 'react'
-import { Favorite, ModeComment } from '@mui/icons-material'
-import Link from 'next/link'
+import Image from 'next/image';
+import { useState, useRef } from 'react';
+import { Favorite, ModeComment } from '@mui/icons-material';
+import Link from 'next/link';
 
 const ProfileContent = ({ userPosts }) => {
-  const [tab, setTab] = useState('posts')
-  const tabRef = useRef(null)
-  const mobileTabRef = useRef(null)
+  const [tab, setTab] = useState('posts');
+  const tabRef = useRef(null);
+  const mobileTabRef = useRef(null);
 
   const handleTabChange = (e) => {
-    if (tabRef.current === e.currentTarget) return
+    if (tabRef.current === e.currentTarget) return;
     tabRef?.current.classList.remove(
       'border-t-black',
       'border-t-2',
       'text-black'
-    )
-    e.currentTarget.classList.add('border-t-black', 'border-t-2', 'text-black')
-    tabRef.current = e.currentTarget
-    setTab((prev) => tabRef.current.id)
-  }
+    );
+    e.currentTarget.classList.add('border-t-black', 'border-t-2', 'text-black');
+    tabRef.current = e.currentTarget;
+    setTab((prev) => tabRef.current.id);
+  };
 
   const handleMobileTabChange = (e) => {
-    if (mobileTabRef.current === e.currentTarget) return
-    mobileTabRef?.current.classList.remove('text-blue-btn')
-    e.currentTarget.classList.add('text-blue-btn')
-    mobileTabRef.current = e.currentTarget
-    setTab((prev) => mobileTabRef?.current.id)
-  }
+    if (mobileTabRef.current === e.currentTarget) return;
+    mobileTabRef?.current.classList.remove('text-blue-btn');
+    e.currentTarget.classList.add('text-blue-btn');
+    mobileTabRef.current = e.currentTarget;
+    setTab((prev) => mobileTabRef?.current.id);
+  };
 
   return (
     <div className="mx-auto flex w-full flex-col border-neutral-300 md:max-w-4xl md:border-t">
@@ -331,6 +331,7 @@ const ProfileContent = ({ userPosts }) => {
                       src={item.image}
                       className=""
                       objectFit="cover"
+                      alt=""
                     />
 
                     <div className="absolute top-0 bottom-0 right-0 left-0 flex h-full w-full bg-black bg-opacity-0 hover:bg-opacity-40">
@@ -350,7 +351,7 @@ const ProfileContent = ({ userPosts }) => {
                   </div>
                 </a>
               </Link>
-            )
+            );
           })}
         </div>
       )}
@@ -400,7 +401,7 @@ const ProfileContent = ({ userPosts }) => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default ProfileContent
+export default ProfileContent;
