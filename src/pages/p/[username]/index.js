@@ -2,6 +2,7 @@ import dbConnect from '../../../lib/dbConnect';
 import mongoose from 'mongoose';
 import Post from '../../../models/Post';
 import User from '../../../models/User';
+import Layout from '../../../components/layouts/Layout';
 
 export async function getServerSideProps(context) {
   await dbConnect();
@@ -41,10 +42,12 @@ export async function getServerSideProps(context) {
 
 export default function Profile({ userData, userPosts }) {
   return (
-    <section className="min-h-[80vh]">
-      <p>{JSON.stringify(userData)}</p>
-      <br></br>
-      <p>{JSON.stringify(userPosts)}</p>
-    </section>
+    <Layout>
+      <section className="min-h-[80vh]">
+        <p>{JSON.stringify(userData)}</p>
+        <br></br>
+        <p>{JSON.stringify(userPosts)}</p>
+      </section>
+    </Layout>
   );
 }
