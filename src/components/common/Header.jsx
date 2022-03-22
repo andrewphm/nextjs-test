@@ -1,64 +1,65 @@
-import { Cancel, Search } from '@mui/icons-material'
-import { useRef, useState } from 'react'
-import logo from '../../../public/images/logo.png'
-import nopfp from '../../../public/images/nopfp.jpeg'
-import { useDispatch, useSelector } from 'react-redux'
-import Image from 'next/image'
-import Link from 'next/link'
-import { clearCurrentUser } from '../../redux/userRedux'
-import API from '../../API'
-import * as ROUTE from '../../constants/routes'
-import NewPost from '../newpost/NewPost'
-import { useRouter } from 'next/router'
+import { Cancel, Search } from '@mui/icons-material';
+import { useRef, useState } from 'react';
+import logo from '../../../public/images/logo.png';
+import nopfp from '../../../public/images/nopfp.jpeg';
+import { useDispatch, useSelector } from 'react-redux';
+import Image from 'next/image';
+import Link from 'next/link';
+import { clearCurrentUser } from '../../redux/userRedux';
+import API from '../../apiCalls';
+import * as ROUTE from '../../constants/routes';
+import NewPost from '../newpost/NewPost';
+import { useRouter } from 'next/router';
+import React from 'react';
 
 const Header = ({ currentTab }) => {
-  const user = useSelector((state) => state.user.currentUser)
-  const [tab, setTab] = useState(currentTab)
-  const [inputIsActive, setInputIsActive] = useState(false)
-  const [searchInput, setSearchInput] = useState('')
-  const menuRef = useRef(null)
-  const menuRefMobile = useRef(null)
-  const dispatch = useDispatch()
-  const [showNewPost, setShowNewPost] = useState(false)
-  const router = useRouter()
+  const user = useSelector((state) => state.user.currentUser);
+  const [tab, setTab] = useState(currentTab);
+  const [inputIsActive, setInputIsActive] = useState(false);
+  const [searchInput, setSearchInput] = useState('');
+  const menuRef = useRef(null);
+  const menuRefMobile = useRef(null);
+  const dispatch = useDispatch();
+  const [showNewPost, setShowNewPost] = useState(false);
+  const router = useRouter();
 
   const handleMenuFocus = () => {
-    setTab((prev) => 'user')
+    setTab((prev) => 'user');
 
-    menuRefMobile.current.classList.toggle('opacity-0')
-    menuRefMobile?.current?.classList.toggle('transform-none')
-    menuRef?.current?.classList.toggle('opacity-0')
-    menuRef?.current?.classList.toggle('transform-none')
-  }
+    menuRefMobile.current.classList.toggle('opacity-0');
+    menuRefMobile?.current?.classList.toggle('transform-none');
+    menuRef?.current?.classList.toggle('opacity-0');
+    menuRef?.current?.classList.toggle('transform-none');
+  };
 
   const handleMenuBlur = () => {
     setTimeout(() => {
-      menuRef?.current?.classList.toggle('opacity-0')
-      menuRef?.current?.classList.toggle('transform-none')
-      menuRefMobile?.current.classList.toggle('opacity-0')
-      menuRefMobile?.current?.classList.toggle('transform-none')
-      setTab((prev) => '/')
-    }, 100)
-  }
+      menuRef?.current?.classList.toggle('opacity-0');
+      menuRef?.current?.classList.toggle('transform-none');
+      menuRefMobile?.current.classList.toggle('opacity-0');
+      menuRefMobile?.current?.classList.toggle('transform-none');
+      setTab((prev) => '/');
+    }, 100);
+  };
 
   const handleSearchClose = () => {
-    setSearchInput((prev) => '')
-    setInputIsActive((prev) => !prev)
-  }
+    setSearchInput((prev) => '');
+    setInputIsActive((prev) => !prev);
+  };
 
   const handleSignOut = async () => {
     try {
-      const data = await API.userSignOut()
-      dispatch(clearCurrentUser())
+      const data = await API.userSignOut();
+      dispatch(clearCurrentUser());
 
       if (router.pathname === '/') {
-        window.location.reload()
+        window.location.reload();
       }
     } catch (error) {
-      console.log(error)
-      return
+      console.log(error);
+      return;
     }
-  }
+  };
 
   return (
     <>
@@ -70,7 +71,7 @@ const Header = ({ currentTab }) => {
           <Link href={ROUTE.DASHBOARD}>
             <a>
               <div className="relative flex h-[35px] w-[113px] min-w-[113px] cursor-pointer">
-                <Image src={logo} layout="fill" priority={true} />
+                <Image src={logo} layout="fill" priority={true} alt="" />
               </div>
             </a>
           </Link>
@@ -210,8 +211,8 @@ const Header = ({ currentTab }) => {
                 tabIndex={0}
                 className="cursor-pointer "
                 onClick={() => {
-                  setTab((prev) => 'add')
-                  setShowNewPost((prev) => true)
+                  setTab((prev) => 'add');
+                  setShowNewPost((prev) => true);
                 }}
               >
                 {tab === 'add' ? (
@@ -372,6 +373,7 @@ const Header = ({ currentTab }) => {
                     className="rounded-full"
                     layout="fill"
                     objectFit="contain"
+                    alt=""
                   />
                 </div>
               </div>
@@ -516,7 +518,7 @@ const Header = ({ currentTab }) => {
           <Link href={ROUTE.DASHBOARD}>
             <a>
               <div className="relative flex h-[28px] w-[98px] min-w-[113px] cursor-pointer">
-                <Image src={logo} layout="fill" />
+                <Image src={logo} layout="fill" alt="" />
               </div>
             </a>
           </Link>
@@ -534,6 +536,7 @@ const Header = ({ currentTab }) => {
                   className="rounded-full"
                   layout="fill"
                   objectFit="contain"
+                  alt=""
                 />
               </div>
             </div>
@@ -775,8 +778,8 @@ const Header = ({ currentTab }) => {
             <div
               className="cursor-pointer "
               onClick={() => {
-                setTab((prev) => 'add')
-                setShowNewPost((prev) => true)
+                setTab((prev) => 'add');
+                setShowNewPost((prev) => true);
               }}
             >
               {tab === 'add' ? (
@@ -926,7 +929,7 @@ const Header = ({ currentTab }) => {
       )}
       {showNewPost && <NewPost setShowNewPost={setShowNewPost} />}
     </>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

@@ -1,6 +1,6 @@
-import { ExpandMore } from '@mui/icons-material'
+import { ExpandMore } from '@mui/icons-material';
 
-function Footer() {
+const Footer = () => {
   return (
     <footer className="mx-auto flex w-full justify-center px-4 py-10 text-xs lg:text-sm">
       <div className="flex flex-col gap-y-3 text-gray-400">
@@ -36,7 +36,7 @@ function Footer() {
         </ul>
       </div>
     </footer>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;
