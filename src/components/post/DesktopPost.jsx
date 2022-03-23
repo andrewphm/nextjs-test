@@ -54,7 +54,7 @@ const DesktopPost = ({ userData, post }) => {
         </header>
 
         {/* Comments */}
-        <div className="h-full overflow-y-scroll border-b border-b-neutral-200 scrollbar-hide">
+        <div className="h-full overflow-y-auto border-b border-b-neutral-200">
           <ul className="flex w-full flex-col gap-y-3 px-4 py-2">
             {post.caption.length > 0 && (
               <li className="flex items-center gap-x-3 text-sm">
@@ -83,27 +83,38 @@ const DesktopPost = ({ userData, post }) => {
             )}
 
             {comments.length > 0 &&
-              comments.map(({ username, comment, image }, i) => {
+              comments.map(({ username, comment, image, createdAt }, i) => {
                 return (
-                  <li key={i} className="flex items-center gap-x-3 text-sm">
-                    <Link href={`/${username}`}>
-                      <a>
-                        <div
-                          className="relative max-h-8 min-h-[32px] min-w-[32px] max-w-[32px]
-                       rounded-full"
-                        >
-                          <Image src={image || nopfp} alt="" />
-                        </div>
-                      </a>
-                    </Link>
-
-                    <p className="leading-4">
+                  <li
+                    key={i}
+                    className="flex items-center gap-x-3 text-sm w-full justify-between"
+                  >
+                    <div className="flex items-center gap-x-3">
                       <Link href={`/${username}`}>
                         <a>
-                          <span className="font-semibold">{username} </span>
+                          <div
+                            className="relative max-h-8 min-h-[32px] min-w-[32px] max-w-[32px]
+                       rounded-full"
+                          >
+                            <Image src={image || nopfp} alt="" />
+                          </div>
                         </a>
                       </Link>
-                      {comment}
+
+                      <p className="leading-4">
+                        <Link href={`/${username}`}>
+                          <a>
+                            <span className="font-semibold">{username} </span>
+                          </a>
+                        </Link>
+                        {comment}
+                      </p>
+                    </div>
+
+                    <p className="text-[10px] text-gray-500">
+                      {formatDistance(new Date(createdAt), new Date(), {
+                        addSuffix: true,
+                      })}
                     </p>
                   </li>
                 );

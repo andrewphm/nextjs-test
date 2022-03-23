@@ -27,18 +27,18 @@ const usePostComment = (setComments) => {
 
     setIsLoading((prev) => !prev);
     try {
-      await API.commentOnPost(postID, userComment);
+      let { data } = await API.commentOnPost(postID, userComment);
+      setComments((prev) => {
+        return [...prev, data];
+      });
+
+      setComment((prev) => '');
+      setIsLoading((prev) => !prev);
     } catch (error) {
       console.log(error);
       setIsLoading((prev) => !prev);
+      setComment((prev) => '');
     }
-
-    setComments((prev) => {
-      return [userComment, ...prev];
-    });
-
-    setComment((prev) => '');
-    setIsLoading((prev) => !prev);
   };
 
   return { comment, setComment, isLoading, setIsLoading, handleCommentClick };

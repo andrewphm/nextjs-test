@@ -16,8 +16,11 @@ export default async function handler(req, res) {
 
     const savedPost = await post.save();
 
-    return res.status(200).json(savedPost);
+    return res
+      .status(200)
+      .json(savedPost.comments[savedPost.comments.length - 1]);
   } catch (error) {
+    console.log(error);
     return res
       .status(400)
       .json({ success: false, message: 'Failed to post comment.' });

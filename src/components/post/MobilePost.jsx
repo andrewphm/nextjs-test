@@ -244,29 +244,40 @@ const MobilePost = ({ userData, post }) => {
       {comments.length > 0 && (
         <div className="flex flex-col px-4 py-1">
           <ul className="flex flex-col gap-y-2">
-            {comments.map(({ username, comment, image }, i) => {
+            {comments.map(({ username, comment, image, createdAt }, i) => {
               if (i >= showComments) return null;
 
               return (
-                <li key={i} className="flex items-center gap-x-3 text-sm">
-                  <Link href={`/${username}`}>
-                    <a>
-                      <div
-                        className="relative max-h-8 min-h-[32px] min-w-[32px] max-w-[32px]
-                       rounded-full"
-                      >
-                        <Image src={image || nopfp} alt="" />
-                      </div>
-                    </a>
-                  </Link>
-
-                  <p className="leading-4">
+                <li
+                  key={i}
+                  className="flex items-center gap-x-3 text-sm w-full justify-between"
+                >
+                  <div className="flex items-center gap-x-3">
                     <Link href={`/${username}`}>
                       <a>
-                        <span className="font-semibold">{username} </span>
+                        <div
+                          className="relative max-h-8 min-h-[32px] min-w-[32px] max-w-[32px]
+                       rounded-full"
+                        >
+                          <Image src={image || nopfp} alt="" />
+                        </div>
                       </a>
                     </Link>
-                    {comment}
+
+                    <p className="leading-4">
+                      <Link href={`/${username}`}>
+                        <a>
+                          <span className="font-semibold">{username} </span>
+                        </a>
+                      </Link>
+                      {comment}
+                    </p>
+                  </div>
+
+                  <p className="text-[10px] text-gray-500">
+                    {formatDistance(new Date(createdAt), new Date(), {
+                      addSuffix: true,
+                    })}
                   </p>
                 </li>
               );
