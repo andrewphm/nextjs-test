@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import imageUpload from '../../helpers/imageUpload';
 import API from '../../apiCalls';
 import { useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
 
 const NewPost = ({ setShowNewPost }) => {
   const [fileURL, setFileUrl] = useState(null);
@@ -17,6 +18,8 @@ const NewPost = ({ setShowNewPost }) => {
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
   const user = useSelector((state) => state.user.currentUser);
+  const [postID, setPostID] = useState(null);
+  const router = useRouter();
 
   const handleUserInputChange = (event) => {
     setFile((prev) => event.target.files[0]);
@@ -43,11 +46,13 @@ const NewPost = ({ setShowNewPost }) => {
     }
 
     try {
-      await API.createNewUserPost({
+      let { data } = await API.createNewUserPost({
         username: user.username,
         image: imgUrl,
         caption: postCaption,
       });
+
+      setPostID((prev) => data._id);
       setIsLoading((prev) => !prev);
       setSuccess((prev) => !prev);
     } catch (error) {
@@ -58,7 +63,11 @@ const NewPost = ({ setShowNewPost }) => {
   };
 
   useEffect(() => {
-    if (success || error) {
+    if (success) {
+      router.push(`/p/${postID}`);
+    }
+
+    if (error) {
       setTimeout(() => {
         setShowNewPost((prev) => !prev);
       }, 2000);

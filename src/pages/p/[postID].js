@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import User from '../../models/User';
+import mongoose from 'mongoose';
 
 export default function UserPost({ post, userData }) {
   /*
@@ -16,20 +17,6 @@ export default function UserPost({ post, userData }) {
     import('../../components/post/DesktopPost.jsx')
   );
   const Layout = dynamic(() => import('../../components/layouts/Layout.jsx'));
-
-  const [windowSize, setWindowSize] = useState(window.innerWidth);
-
-  const handleChange = () => {
-    setWindowSize((prev) => window.innerWidth);
-  };
-
-  useEffect(() => {
-    window.addEventListener('resize', handleChange);
-
-    return () => {
-      window.removeEventListener('resize', handleChange);
-    };
-  }, []);
 
   // If user post cannot be found
   if (!post) {
@@ -58,38 +45,38 @@ export default function UserPost({ post, userData }) {
 
   return (
     <Layout>
-      {/* Mobile render */}
-      {windowSize < 767 && <MobilePost post={post} userData={userData} />}
-
-      {/* Desktop render */}
-      {windowSize > 767 && <DesktopPost post={post} userData={userData} />}
+      <MobilePost post={post} userData={userData} />
+      <DesktopPost post={post} userData={userData} />
     </Layout>
   );
 }
 
-export async function getStaticPaths() {
+export async function getServerSideProps(context) {
   await dbConnect();
 
-  let posts = await Post.find({});
+  let _id = context.query.postID;
 
-  posts = JSON.parse(JSON.stringify(posts));
-  const paths = posts.map((post) => ({
-    params: { postID: post._id },
-  }));
+  if (mongoose.connection.readyState === 1) {
+    try {
+      let post = await Post.findOne({ _id });
+      let user = await User.findOne({ username: post.username });
 
-  return { paths, fallback: 'blocking' };
-}
-
-export async function getStaticProps({ params }) {
-  await dbConnect();
-
-  let _id = params.postID;
-
-  try {
-    let post = await Post.findOne({ _id });
-    let user = await User.findOne({ username: post.username });
-
-    if (!post) {
+      if (!post) {
+        return {
+          props: {
+            post: null,
+            userData: null,
+          },
+        };
+      }
+      return {
+        props: {
+          post: JSON.parse(JSON.stringify(post)),
+          userData: JSON.parse(JSON.stringify(user)),
+        },
+      };
+    } catch (error) {
+      console.log(error);
       return {
         props: {
           post: null,
@@ -97,20 +84,5 @@ export async function getStaticProps({ params }) {
         },
       };
     }
-    return {
-      props: {
-        post: JSON.parse(JSON.stringify(post)),
-        userData: JSON.parse(JSON.stringify(user)),
-      },
-      revalidate: 5,
-    };
-  } catch (error) {
-    console.log(error);
-    return {
-      props: {
-        post: null,
-        userData: null,
-      },
-    };
   }
 }

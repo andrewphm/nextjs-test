@@ -29,7 +29,7 @@ const MobilePost = ({ userData, post }) => {
   const { isLiked, handleLikeClick, likes } = useLikePost(post);
 
   return (
-    <article className="h-full min-h-[80vh] w-full">
+    <article className="h-full min-h-[80vh] w-full md:hidden">
       {/* Header */}
       <div className="flex w-full items-center gap-x-3 p-3 md:hidden">
         <div className="relative h-9 w-9 overflow-hidden rounded-full border border-neutral-400">
