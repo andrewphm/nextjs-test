@@ -29,13 +29,6 @@ export async function getServerSideProps(context) {
       },
     };
   }
-
-  return {
-    props: {
-      userData: null,
-      userPosts: [],
-    },
-  };
 }
 
 export default function Profile({ userData, userPosts }) {
